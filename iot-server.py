@@ -30,6 +30,29 @@ def dropTable():
 def hello_world():
     return 'Hello World!'
 
+@app.route('/fetch',methods=['GET','POST'])
+def fetch():
+    uuid = request.form['uuid']
+    date = datetime.datetime.now().strftime("%y-%m-%d")
+
+    sql_check = "Select * from iotdata where dates ='" + date + "' and uuid = '" + uuid + "' and active=0"
+    cur.execute(sql_check)
+
+    try:
+        a = cur.fetchone()
+        if a == None:
+            return "{'result':'not registered'}"
+        else:
+            access = a[8]
+            #check for this access
+
+
+
+    except:
+        print "Some error"
+        return "{'result':'error'}"
+
+    return 'hello'
 
 @app.route('/register',methods=['GET','POST'])
 def register():
@@ -73,4 +96,4 @@ def register():
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(host='0.0.0.0')
