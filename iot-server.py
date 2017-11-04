@@ -8,9 +8,9 @@ import time
 
 app = Flask(__name__)
 
-db = MySQLdb.connect(host="localhost",
-                     user="root",
-                     passwd="myIsy269",
+db = MySQLdb.connect(host="iot.clbvvfh8xggv.us-east-1.rds.amazonaws.com",
+                     user="yesalam",
+                     passwd="myIsy269_",
                      )
 
 cur = db.cursor()
@@ -29,6 +29,11 @@ def dropTable():
 @app.route('/')
 def hello_world():
     return 'Hello World!'
+
+@app.route('/create')
+def create():
+    createTable()
+    return 'Success'
 
 @app.route('/fetch',methods=['GET','POST'])
 def fetch():
