@@ -12,7 +12,6 @@ db = MySQLdb.connect(host="iot.clbvvfh8xggv.us-east-1.rds.amazonaws.com",
                      user="yesalam",
                      passwd="myIsy269_",
                      )
-
 cur = db.cursor()
 
 def createTable():
