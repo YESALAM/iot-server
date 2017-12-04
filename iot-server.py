@@ -73,7 +73,7 @@ def register():
 
         date = datetime.datetime.now().strftime("%y-%m-%d")
         time = datetime.datetime.now().strftime("%H-%M")
-
+	cur.execute("use iot;")
         sql_check = "Select * from iotdata where dates ='"+date+"' and uuid = '"+uuid+"' and active=0"
         cur.execute(sql_check)
 
