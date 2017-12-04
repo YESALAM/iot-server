@@ -41,7 +41,7 @@ def fetch():
     uuid = request.form['uuid']
     bid = request.form['b_id']
     date = datetime.datetime.now().strftime("%y-%m-%d")
-
+    print "fetch called with",bid,uuid
     sql_check = "Select * from iotdata where dates ='" + date + "' and uuid = '" + uuid + "' and active=0"
     cur.execute(sql_check)
 
