@@ -33,23 +33,34 @@ def fetch():
     try:
         a = cur.fetchone()
         if a == None:
-	    print "card not registerd"
+            print "card not registerd"
             return '{"result":"not registered"}'
         else:
             access = a[8]
             #check for this access
-	    if access == '1':
-		if bid=='1':
-			print "ok to go"
-			return '{"result":"ok"}'
-		else:
-			return "not ok"
-			return '{"result":"notok"}'
-	    elif access == '2':
-		if bid=='1' or bid=='2':
-			return '{"result":"ok"}'
-		else:
-			return '{"result":"notok"}'
+            if access == '1' and bid=='1':
+                return '{"result":"ok"}'
+            elif access == '2' and (bid=='1' or bid=='2'):
+                return '{"result":"ok"}'
+            elif access == '3' and bid =='3':
+                return '{"result":"ok"}'
+            elif access == '10' and bid=='10':
+                return '{"result":"ok"}'
+            elif access == '5' and bid=='5':
+                return '{"result":"ok"}'
+            elif access == '8' and bid=='8':
+                return '{"result":"ok"}'
+            elif access == '9' and bid=='9':
+                return '{"result":"ok"}'
+            elif access =='7' and (bid=='9' or bid=='7'):
+                return '{"result":"ok"}'
+            elif access =='4' and bid=='4':
+                return '{"result":"ok"}'
+            elif access == '6' and (bid=='6' or bid == '11'):
+                return '{"result":"ok"}'
+            else:
+                return '{"result":"notok"}'
+
 
 
 
