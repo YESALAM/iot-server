@@ -39,6 +39,7 @@ def create():
 @app.route('/fetch',methods=['GET','POST'])
 def fetch():
     uuid = request.form['uuid']
+    bid = request.form['b_id']
     date = datetime.datetime.now().strftime("%y-%m-%d")
 
     sql_check = "Select * from iotdata where dates ='" + date + "' and uuid = '" + uuid + "' and active=0"
@@ -51,14 +52,23 @@ def fetch():
         else:
             access = a[8]
             #check for this access
+	    if access == '1':
+		if bid=='1':
+			return "{'result':'ok'}"
+		else:
+			return "{'result':'notok'}"
+	    elif access == '2':
+		if bid=='1' or bid=='2':
+			return "{'result':'ok'}"
+		else:
+			return "{'result':'notok'}"
 
 
 
     except:
         print "Some error"
         return "{'result':'error'}"
-
-    return 'hello'
+    
 
 @app.route('/register',methods=['GET','POST'])
 def register():
