@@ -50,28 +50,28 @@ def fetch():
         a = cur.fetchone()
         if a == None:
 	    print "card not registerd"
-            return "{'result':'not registered'}"
+            return '{"result":"not registered"}'
         else:
             access = a[8]
             #check for this access
 	    if access == '1':
 		if bid=='1':
 			print "ok to go"
-			return "{'result':'ok'}"
+			return '{"result":"ok"}'
 		else:
 			return "not ok"
-			return "{'result':'notok'}"
+			return '{"result":"notok"}'
 	    elif access == '2':
 		if bid=='1' or bid=='2':
-			return "{'result':'ok'}"
+			return '{"result":"ok"}'
 		else:
-			return "{'result':'notok'}"
+			return '{"result":"notok"}'
 
 
 
     except:
         print "Some error"
-        return "{'result':'error'}"
+        return '{"result":"error"}'
     
 
 @app.route('/register',methods=['GET','POST'])
@@ -98,17 +98,17 @@ def register():
                 try:
                     cur.execute(sql_insert)
                     db.commit()
-                    return "{'result':'ok'}"
+                    return '{"result":"ok"}'
                 except ValueError:
                     print "insert error"
-                    return "{'result':'error'}"
+                    return '{"result":"error"}'
                     db.rollback()
             else:
                 print "Already Authenticated"
-                return "{'result':'already'}"
+                return '{"result":"already"}'
         except:
             print "Some error"
-            return "{'result':'error'}"
+            return '{"result":"error"}'
 
 
 
