@@ -48,14 +48,17 @@ def fetch():
     try:
         a = cur.fetchone()
         if a == None:
+	    print "card not registerd"
             return "{'result':'not registered'}"
         else:
             access = a[8]
             #check for this access
 	    if access == '1':
 		if bid=='1':
+			print "ok to go"
 			return "{'result':'ok'}"
 		else:
+			return "not ok"
 			return "{'result':'notok'}"
 	    elif access == '2':
 		if bid=='1' or bid=='2':
