@@ -13,6 +13,7 @@ db = MySQLdb.connect(host="iot.clbvvfh8xggv.us-east-1.rds.amazonaws.com",
                      passwd="myIsy269_",
                      )
 cur = db.cursor()
+cur.execute("use iot;")
 
 def createTable():
     cur.execute("""CREATE DATABASE IF NOT EXISTS  iot""")
@@ -86,7 +87,7 @@ def register():
 
         date = datetime.datetime.now().strftime("%y-%m-%d")
         time = datetime.datetime.now().strftime("%H-%M")
-	cur.execute("use iot;")
+
         sql_check = "Select * from iotdata where dates ='"+date+"' and uuid = '"+uuid+"' and active=0"
         cur.execute(sql_check)
 
