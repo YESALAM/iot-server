@@ -23,6 +23,7 @@ def hello_world():
 
 @app.route('/fetch',methods=['GET','POST'])
 def fetch():
+    print "Fetch called"
     uuid = request.form['uuid']
     bid = request.form['b_id']
     date = datetime.datetime.now().strftime("%y-%m-%d")
@@ -71,7 +72,7 @@ def fetch():
 
 @app.route('/register',methods=['GET','POST'])
 def register():
-
+    print "Register called"
     if request.method == 'POST':
         name = request.form['name']
         vrn = request.form['vrn']
@@ -107,17 +108,33 @@ def register():
 
 @app.route('/gateexit',methods=['GET','POST'])
 def gateExit():
-
+    print "Gate Exit called"
     if request.method == 'POST':
         uuid = request.form['uuid']
-        date = datetime.datetime.now().strftime("%y-%m-%d")        
+        date = datetime.datetime.now().strftime("%y-%m-%d") 
 
-        sql_check = "update iotdata set active=1 where dates ='"+date+"' and uuid = '"+uuid+"'"
+	sql_check = "Select * from iotdata where dates ='"+date+"' and uuid = '"+uuid+"' and active=1"
         cur.execute(sql_check)
-	return '{"result":"ok"}'
 
-
-
+        try:
+            a = cur.fetchone()
+            if a == None:
+                sql_update = "update iotdata set active=1 where dates ='"+date+"' and uuid = '"+uuid+"'"
+                try:
+                    cur.execute(sql_check)
+                    db.commit()
+                    return '{"result":"ok"}'
+                except ValueError:
+                    print "Update error"
+                    return '{"result":"updateerror"}'
+                    db.rollback()
+            else:
+                print "Already Updated"
+                return '{"result":"already"}'
+        except:
+            print "Some error"
+            return '{"result":"error"}'
+       
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0')
