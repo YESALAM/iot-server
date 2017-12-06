@@ -121,7 +121,7 @@ def gateExit():
             if a == None:
                 sql_update = "update iotdata set active=1 where dates ='"+date+"' and uuid = '"+uuid+"'"
                 try:
-                    cur.execute(sql_check)
+                    cur.execute(sql_update)
                     db.commit()
                     return '{"result":"ok"}'
                 except ValueError:
