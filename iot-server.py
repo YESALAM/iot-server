@@ -99,13 +99,22 @@ def register():
                     return '{"result":"error"}'
                     db.rollback()
             else:
-                print "Already Authenticated"
+                print "Already Generated"
                 return '{"result":"already"}'
         except:
             print "Some error"
             return '{"result":"error"}'
 
+@app.route('/gateexit',methods=['GET','POST'])
+def gateExit():
 
+    if request.method == 'POST':
+        uuid = request.form['uuid']
+        date = datetime.datetime.now().strftime("%y-%m-%d")        
+
+        sql_check = "update iotdata set active=1 where dates ='"+date+"' and uuid = '"+uuid+"'"
+        cur.execute(sql_check)
+	return '{"result":"ok"}'
 
 
 
